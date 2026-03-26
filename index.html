@@ -9,8 +9,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+    
+    <!-- PayPal SDK will be loaded dynamically -->
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif; }
         body { background: #f4f7fb; }
@@ -23,13 +24,6 @@
             color: transparent;
         }
         .logo-sub { font-size: 11px; color: #64748b; letter-spacing: 0.5px; }
-        .verified-badge {
-            display: inline-flex; align-items: center; gap: 5px;
-            background: linear-gradient(135deg, #0f5b7a, #0a4159);
-            color: white; padding: 3px 12px; border-radius: 30px;
-            font-size: 11px; font-weight: bold; margin-left: 6px;
-        }
-        .verified-badge::before { content: "✓"; font-weight: bold; }
         .top-bar {
             display: flex; justify-content: space-between; align-items: center;
             flex-wrap: wrap; gap: 15px; padding: 12px 30px;
@@ -50,8 +44,6 @@
         .auth-links { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .sign-link, .register-link { cursor: pointer; font-weight: 500; color: #f97316; text-decoration: none; }
         .logout-btn { background: #ef4444; border: none; padding: 6px 16px; border-radius: 30px; color: white; cursor: pointer; font-size: 12px; }
-        .admin-btn { background: linear-gradient(135deg, #f97316, #fdba74); color: white; border: none; padding: 6px 18px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-        .reset-data-btn { background: #dc2626; color: white; border: none; padding: 6px 16px; border-radius: 30px; font-size: 12px; cursor: pointer; font-weight: bold; }
         .main-container { max-width: 1400px; margin: 30px auto; display: flex; gap: 28px; padding: 0 25px; flex-wrap: wrap; }
         .sidebar { width: 320px; flex-shrink: 0; }
         .content-area { flex: 1; min-width: 280px; }
@@ -132,12 +124,6 @@
         .message-bubble { padding: 12px 16px; border-radius: 18px; margin-bottom: 12px; max-width: 85%; word-wrap: break-word; }
         .message-bubble.sent { background: linear-gradient(135deg, #f97316, #f59e0b); color: white; margin-left: auto; }
         .message-bubble.received { background: white; border: 1px solid #e2e8f0; color: #1e293b; }
-        .message-bubble.flagged { background: #fee2e2; border-left: 4px solid #ef4444; }
-        .warning-message { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 12px; margin-bottom: 12px; font-size: 13px; }
-        .protection-badge { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 12px; border-radius: 12px; margin-bottom: 12px; font-size: 13px; }
-        .message-input-area { display: flex; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
-        .message-input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 40px; font-size: 14px; resize: none; }
-        .send-msg-btn { background: linear-gradient(135deg, #f97316, #f59e0b); border: none; padding: 12px 28px; border-radius: 40px; color: white; cursor: pointer; font-weight: bold; }
         .empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
         .intro { background: white; border-radius: 24px; padding: 20px; margin-top: 24px; text-align: center; }
         .form-group { margin-bottom: 16px; }
@@ -146,7 +132,39 @@
         .footer { background: white; padding: 30px; text-align: center; margin-top: 40px; border-top: 1px solid #e2e8f0; color: #64748b; }
         .fee-note { font-size: 12px; color: #64748b; text-align: center; margin-top: 12px; padding: 8px; background: #f8fafc; border-radius: 12px; }
         
-        /* Search Bar with Category Dropdown */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .payment-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        .payment-option:hover {
+            border-color: #f97316;
+            transform: translateY(-2px);
+        }
+        .payment-option.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        .payment-option .payment-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        .payment-option-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+        
         .search-wrapper { flex: 1; display: flex; position: relative; flex-wrap: wrap; gap: 12px; }
         .search-input-group { flex: 1; display: flex; position: relative; }
         .category-dropdown-btn {
@@ -155,9 +173,7 @@
             font-weight: 600; color: #f97316; cursor: pointer;
             display: flex; align-items: center; gap: 8px; white-space: nowrap;
         }
-        .category-dropdown-btn:hover { background: #e2e8f0; }
         .search-box { flex: 1; padding: 12px 20px; font-size: 16px; border: 1px solid #ddd; border-left: none; border-radius: 0; outline: none; }
-        .search-box:focus { border-color: #f97316; }
         .search-btn-right { background: #f97316; border: none; border-radius: 0 40px 40px 0; padding: 0 28px; color: white; cursor: pointer; font-size: 16px; }
         .category-dropdown-menu {
             position: absolute; top: 100%; left: 0; background: white;
@@ -166,26 +182,14 @@
             display: none; margin-top: 8px;
         }
         .category-dropdown-menu.show { display: block; }
-        .category-main-dropdown { border-bottom: 1px solid #f0f0f0; }
-        .category-header-dropdown {
-            padding: 12px 16px; font-weight: 600; font-size: 14px; color: #f97316;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fffaf5;
-        }
-        .category-header-dropdown:hover { background: #fff0e6; }
-        .subcategory-list-dropdown { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #fefaf5; padding-left: 20px; }
-        .subcategory-list-dropdown.open { max-height: 300px; }
-        .subcategory-item-dropdown { padding: 10px 16px 10px 36px; font-size: 13px; color: #4b5563; cursor: pointer; border-bottom: 1px solid #f5f0ea; }
-        .subcategory-item-dropdown:hover { background: #f97316; color: white; }
-        .category-all-dropdown { padding: 12px 16px; font-weight: 600; font-size: 13px; color: #2563eb; cursor: pointer; text-align: center; border-top: 1px solid #e2e8f0; }
-        .category-all-dropdown:hover { background: #dbeafe; }
         .selected-category-badge { background: #f97316; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; }
         .clear-category { cursor: pointer; font-weight: bold; }
+        
+        .card-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; margin-bottom: 12px; }
         
         @media (max-width: 800px) { 
             .sidebar { width: 100%; } 
             .cart-drawer { width: 100%; right: -100%; }
-            .search-wrapper { flex-direction: column; }
-            .search-input-group { width: 100%; }
         }
     </style>
 </head>
@@ -197,7 +201,7 @@
     <div class="cart-items" id="cartItems" style="flex:1;overflow-y:auto;padding:16px;"></div>
     <div class="cart-footer" id="cartFooter" style="padding:20px;border-top:1px solid #eee;display:none;">
         <div class="cart-total" id="cartTotal" style="font-weight:bold;font-size:20px;">Total: N$0</div>
-        <button onclick="checkout()" style="background:#f97316;color:white;width:100%;padding:14px;border:none;border-radius:40px;margin-top:12px;cursor:pointer;">Proceed to Checkout</button>
+        <button onclick="showPaymentOptions()" style="background:#f97316;color:white;width:100%;padding:14px;border:none;border-radius:40px;margin-top:12px;cursor:pointer;">Proceed to Checkout</button>
         <div class="fee-note">🔒 NAWA Protection: 100% safe checkout</div>
     </div>
 </div>
@@ -240,6 +244,7 @@
         <div class="search-container" style="margin-bottom:20px;">
             <div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
                 <button onclick="openSellModal()" style="background:linear-gradient(135deg, #2563eb, #1e40af);color:white;border:none;padding:12px 28px;border-radius:40px;font-weight:bold;cursor:pointer;">📦 SELL ON NAWA</button>
+                <button onclick="viewSellerDashboard()" style="background:linear-gradient(135deg, #10b981, #059669);color:white;border:none;padding:12px 28px;border-radius:40px;font-weight:bold;cursor:pointer;">📊 Seller Dashboard</button>
             </div>
             <div class="search-wrapper">
                 <div class="search-input-group">
@@ -261,6 +266,7 @@
                 <span style="background:#dbeafe; padding:6px 14px; border-radius:30px; font-size:12px;">🔒 NAWA Money Back Guarantee</span>
                 <span style="background:#dbeafe; padding:6px 14px; border-radius:30px; font-size:12px;">🛡️ Seller Protection</span>
                 <span style="background:#dbeafe; padding:6px 14px; border-radius:30px; font-size:12px;">💬 Safe In-App Messaging</span>
+                <span style="background:#dbeafe; padding:6px 14px; border-radius:30px; font-size:12px;">💳 8 Payment Options</span>
             </div>
         </div>
     </div>
@@ -277,6 +283,7 @@
 <div id="authModal" class="modal" onclick="if(event.target===this)closeAuthModal()"><div class="modal-content" id="authModalContent"></div></div>
 <div id="messagingModal" class="modal" onclick="if(event.target===this)closeMessagingModal()"><div class="modal-content" id="messagingContent"></div></div>
 <div id="adminModal" class="modal" onclick="if(event.target===this)closeAdminDashboard()"><div class="modal-content" id="adminContent"></div></div>
+<div id="paymentModal" class="modal" onclick="if(event.target===this)closePaymentModal()"><div class="modal-content" id="paymentContent"></div></div>
 
 <script>
 // ============ FIREBASE CONFIGURATION ============
@@ -291,10 +298,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
+
+// ============ COMMISSION CONFIGURATION ============
+const COMMISSION_PERCENTAGE = 14;
+const COMMISSION_RATE = COMMISSION_PERCENTAGE / 100;
 
 // ============ CATEGORIES ============
 const CATEGORIES = [
@@ -302,7 +315,6 @@ const CATEGORIES = [
     { name: "Electronics", icon: "📱", subcategories: ["Computers, Tablets & Network Hardware", "Cell Phones, Smart Watches & Accessories", "Video Games & Consoles", "Cameras & Photo"] },
     { name: "Collectibles & Art", icon: "🎨", subcategories: ["Trading Cards", "Collectibles", "Coins & Paper Money", "Sports Memorabilia"] },
     { name: "Clothing & Accessories", icon: "👕", subcategories: ["Women", "Men", "Handbags", "Collectible Sneakers"] },
-    { name: "Business & Industrial", icon: "🏭", subcategories: ["Modular & Pre-Fabricated Buildings", "Test, Measurement & Inspection Equipment", "Heavy Equipment, Parts & Attachments", "Restaurant & Food Service"] },
     { name: "Home & Garden", icon: "🏠", subcategories: ["Yard, Garden & Outdoor Living Items", "Tools & Workshop Equipment", "Home Improvement", "Kitchen, Dining & Bar Supplies"] },
     { name: "Sporting Goods", icon: "⚽", subcategories: ["Hunting Equipment", "Golf Equipment", "Outdoor sports", "Cycling Equipment"] },
     { name: "Jewelry & Watches", icon: "💎", subcategories: ["Luxury Watches", "Wristwatches", "Fashion Jewelry", "Fine Jewelry"] },
@@ -323,9 +335,35 @@ let selectedPhotos = [];
 let categoryDropdownOpen = false;
 let currentChatProduct = null;
 let currentChatSeller = null;
+let currentMarketplace = 'local';
+
+// ============ HELPER FUNCTIONS ============
+function calculateFinalPrice(sellerPrice) {
+    const finalPrice = sellerPrice / (1 - COMMISSION_RATE);
+    return Math.round(finalPrice * 100) / 100;
+}
+
+function calculateCommission(finalPrice, sellerPrice) {
+    return finalPrice - sellerPrice;
+}
+
+function generateOrderId() {
+    return 'NAWA-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
 
 // ============ AUTHENTICATION ============
 auth.onAuthStateChanged((user) => {
+    console.log(`Auth state: ${user ? `Logged in as ${user.email}` : 'Not logged in'}`);
     if (user) {
         currentUser = {
             id: user.uid,
@@ -345,10 +383,8 @@ function updateAuthUI() {
     let sec = document.getElementById('authSection'); 
     if(currentUser){ 
         sec.innerHTML=`<span>Welcome, <strong>${escapeHtml(currentUser.name)}</strong>!</span> <button class="logout-btn" onclick="logoutUser()">Logout</button>`; 
-        document.getElementById('adminPanelBtn').innerHTML = ''; 
     } else { 
         sec.innerHTML=`<span>Welcome!</span> <a class="sign-link" onclick="openAuthModal('login')">Sign In</a> <span>|</span> <a class="register-link" onclick="openAuthModal('register')">Register</a>`; 
-        document.getElementById('adminPanelBtn').innerHTML=''; 
     } 
     updateCartUI();
 }
@@ -393,100 +429,6 @@ async function loadProducts() {
     });
 }
 
-async function addProduct(productData, photos) {
-    if (!currentUser) {
-        alert('Please sign in to sell');
-        return false;
-    }
-    
-    const photoUrls = [];
-    for (let i = 0; i < photos.length; i++) {
-        const storageRef = storage.ref().child(`products/${Date.now()}_${i}.jpg`);
-        const uploadTask = await storageRef.putString(photos[i], 'data_url');
-        const url = await uploadTask.ref.getDownloadURL();
-        photoUrls.push(url);
-    }
-    
-    await db.collection('products').add({
-        title: productData.title,
-        category: productData.category,
-        subcategory: productData.subcategory || '',
-        brand: productData.brand || '',
-        price: productData.price,
-        location: productData.location,
-        description: productData.description || '',
-        photos: photoUrls,
-        sellerId: currentUser.id,
-        sellerName: currentUser.name,
-        sellerEmail: currentUser.email,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    
-    return true;
-}
-
-// ============ MESSAGING FUNCTIONS ============
-async function openMessaging(productId, sellerId, sellerName, productTitle) {
-    if (!currentUser) { alert('Sign in to message'); openAuthModal('login'); return; }
-    
-    currentChatProduct = { id: productId, title: productTitle };
-    currentChatSeller = { id: sellerId, name: sellerName };
-    
-    const conversationId = [currentUser.id, sellerId].sort().join('_') + '_' + productId;
-    
-    const messagesDiv = document.getElementById('messageList');
-    if (messagesDiv) {
-        db.collection('messages')
-            .where('conversationId', '==', conversationId)
-            .orderBy('timestamp', 'asc')
-            .onSnapshot((snapshot) => {
-                let msgHtml = '';
-                snapshot.forEach(doc => {
-                    const msg = doc.data();
-                    const isSent = msg.senderId === currentUser.id;
-                    msgHtml += `<div class="message-bubble ${isSent ? 'sent' : 'received'}">
-                        <strong>${escapeHtml(msg.senderName)}</strong><br>
-                        ${escapeHtml(msg.text)}<br>
-                        <small>${msg.timestamp?.toDate ? new Date(msg.timestamp.toDate()).toLocaleTimeString() : ''}</small>
-                    </div>`;
-                });
-                if (msgHtml === '') msgHtml = '<div style="text-align:center;padding:40px;">Start your conversation!</div>';
-                messagesDiv.innerHTML = msgHtml;
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            });
-    }
-    
-    document.getElementById('chatTitle').innerHTML = `💬 Chat: ${escapeHtml(productTitle)} with ${escapeHtml(sellerName)}`;
-    document.getElementById('messagingModal').style.display = 'flex';
-}
-
-async function sendMessage() {
-    const msgText = document.getElementById('chatInput').value.trim();
-    if (!msgText || !currentUser || !currentChatProduct || !currentChatSeller) return;
-    
-    const conversationId = [currentUser.id, currentChatSeller.id].sort().join('_') + '_' + currentChatProduct.id;
-    
-    await db.collection('messages').add({
-        conversationId: conversationId,
-        productId: currentChatProduct.id,
-        productTitle: currentChatProduct.title,
-        senderId: currentUser.id,
-        senderName: currentUser.name,
-        receiverId: currentChatSeller.id,
-        receiverName: currentChatSeller.name,
-        text: msgText,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        read: false
-    });
-    
-    document.getElementById('chatInput').value = '';
-}
-
-function closeMessagingModal() {
-    document.getElementById('messagingModal').style.display = 'none';
-}
-
-// ============ DISPLAY FUNCTIONS ============
 function displayProducts(products) {
     const grid = document.getElementById('productsGrid');
     if (products.length === 0) {
@@ -494,29 +436,36 @@ function displayProducts(products) {
         return;
     }
     
-    grid.innerHTML = products.map(p => `
+    grid.innerHTML = products.map(p => {
+        const displayPrice = p.finalPrice || p.price;
+        const commissionNote = p.commission ? `<span style="font-size:10px; color:#666;">(+${p.commissionRate || COMMISSION_PERCENTAGE}% fee)</span>` : '';
+        
+        return `
         <div class="product-card" onclick="openProductDetail('${p.id}')">
             <div class="product-image">
                 ${p.photos && p.photos[0] ? `<img src="${p.photos[0]}" alt="${escapeHtml(p.title)}">` : '<div style="font-size:48px;">📦</div>'}
                 ${p.photos && p.photos.length > 1 ? `<div class="photo-count-badge">📷 ${p.photos.length}</div>` : ''}
+                ${p.status === 'sold' ? '<div style="position:absolute;top:8px;right:8px;background:red;color:white;padding:4px 12px;border-radius:20px;font-size:12px;">SOLD</div>' : ''}
             </div>
             <div class="product-info">
                 <div class="product-title">${escapeHtml(p.title)}</div>
-                <div class="product-price">N$${p.price.toLocaleString()}</div>
+                <div class="product-price">N$${displayPrice.toLocaleString()} ${commissionNote}</div>
                 <div>📍 ${escapeHtml(p.location)}</div>
                 <div style="font-size:12px;color:#666;">👤 ${escapeHtml(p.sellerName)}</div>
+                ${p.status !== 'sold' ? `
                 <div class="button-group" onclick="event.stopPropagation()">
                     <button class="add-to-cart-btn" onclick="addToCart('${p.id}')">🛒 Add</button>
                     <button class="contact-seller-btn" onclick="openMessaging('${p.id}', '${p.sellerId}', '${escapeHtml(p.sellerName)}', '${escapeHtml(p.title)}')">💬 Message</button>
                 </div>
+                ` : '<div style="margin-top:12px;padding:8px;background:#fee;text-align:center;border-radius:12px;">Sold Out</div>'}
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 function filterAndDisplay() {
     let filtered = [...allProducts];
-    filtered = filtered.filter(p => p.price >= currentFilters.minPrice && p.price <= currentFilters.maxPrice);
+    filtered = filtered.filter(p => (p.finalPrice || p.price) >= currentFilters.minPrice && (p.finalPrice || p.price) <= currentFilters.maxPrice);
     if (currentFilters.brand) filtered = filtered.filter(p => p.brand === currentFilters.brand);
     if (currentFilters.region) filtered = filtered.filter(p => p.location && p.location.includes(currentFilters.region));
     if (currentFilterCat !== 'all') {
@@ -554,8 +503,7 @@ function switchMarketplace(type) {
     currentMarketplace = type;
     document.querySelectorAll('.marketplace-btn').forEach(b => b.classList.remove('active'));
     document.querySelector(`.marketplace-btn.${type}`).classList.add('active');
-    if (type === 'local') filterAndDisplay();
-    else document.getElementById('productsGrid').innerHTML = '<div class="empty-state">🌍 NAWA Global coming soon!</div>';
+    filterAndDisplay();
 }
 
 function filterCategory(category, subcategory) {
@@ -652,8 +600,26 @@ function renderPhotoPreviews() {
 function removePhoto(idx) { selectedPhotos.splice(idx, 1); renderPhotoPreviews(); }
 function clearPhotos() { selectedPhotos = []; if (document.getElementById('photoPreviews')) document.getElementById('photoPreviews').innerHTML = ''; }
 
+function updatePricePreview() {
+    const sellerPrice = parseFloat(document.getElementById('prodSellerPrice')?.value);
+    if (!sellerPrice || sellerPrice <= 0) {
+        document.getElementById('sellerAmountPreview').innerText = 'N$0';
+        document.getElementById('commissionPreview').innerText = 'N$0';
+        document.getElementById('buyerPricePreview').innerText = 'N$0';
+        return;
+    }
+    
+    const finalPrice = calculateFinalPrice(sellerPrice);
+    const commission = calculateCommission(finalPrice, sellerPrice);
+    
+    document.getElementById('sellerAmountPreview').innerHTML = `N$${sellerPrice.toFixed(2)}`;
+    document.getElementById('commissionPreview').innerHTML = `N$${commission.toFixed(2)}`;
+    document.getElementById('buyerPricePreview').innerHTML = `N$${finalPrice.toFixed(2)}`;
+}
+
 function openSellModal() {
     if (!currentUser) { alert('Sign in to sell'); openAuthModal('login'); return; }
+    
     let categoryOptions = CATEGORIES.map(c => `<option value="${c.name}">${c.icon} ${c.name}</option>`).join('');
     document.getElementById('sellFormContainer').innerHTML = `
         <div class="form-group"><label>📸 Photos (up to 5) *</label>
@@ -665,100 +631,108 @@ function openSellModal() {
         <div class="form-group"><label>Category *</label><select id="prodCat">${categoryOptions}</select></div>
         <div class="form-group"><label>Subcategory</label><select id="prodSubcat"><option value="">Select subcategory</option></select></div>
         <div class="form-group"><label>Brand</label><input id="prodBrand" placeholder="Brand name (optional)"></div>
-        <div class="form-group"><label>Price (N$) *</label><input id="prodPrice" type="number" placeholder="e.g. 2500"></div>
-        <div class="form-group"><label>Location *</label><input id="prodLocation" placeholder="e.g. Windhoek"></div>
+        <div class="form-group">
+            <label>💰 Your Desired Price (What you want to receive) *</label>
+            <input id="prodSellerPrice" type="number" placeholder="e.g. 1000" oninput="updatePricePreview()">
+            <div id="pricePreview" style="margin-top: 8px; padding: 12px; background: #f8fafc; border-radius: 12px; font-size: 13px;">
+                <strong>💰 Price Breakdown:</strong><br>
+                • You receive: <span id="sellerAmountPreview">N$0</span><br>
+                • NAWA Commission (${COMMISSION_PERCENTAGE}%): <span id="commissionPreview">N$0</span><br>
+                • <strong>Buyer pays: <span id="buyerPricePreview" style="color:#f97316;">N$0</span></strong>
+            </div>
+        </div>
+        <div class="form-group"><label>📍 Location *</label><input id="prodLocation" placeholder="e.g. Windhoek"></div>
+        <div class="fee-note">💡 You set your desired price. NAWA adds ${COMMISSION_PERCENTAGE}% commission which the buyer pays.</div>
         <button class="submit-btn" onclick="submitProduct()">✅ List on NAWA</button>
     `;
+    
     document.getElementById('prodCat').addEventListener('change', function() {
         let catObj = CATEGORIES.find(c => c.name === this.value);
         let subcatHtml = '<option value="">Select subcategory</option>';
         if (catObj) subcatHtml += catObj.subcategories.map(s => `<option value="${s}">${s}</option>`).join('');
         document.getElementById('prodSubcat').innerHTML = subcatHtml;
     });
+    
     renderPhotoPreviews();
     document.getElementById('sellModal').style.display = 'flex';
 }
 
 async function submitProduct() {
     if (!currentUser) return;
+    
     let title = document.getElementById('prodTitle')?.value.trim();
-    let price = parseInt(document.getElementById('prodPrice')?.value);
+    let sellerPrice = parseFloat(document.getElementById('prodSellerPrice')?.value);
     let loc = document.getElementById('prodLocation')?.value.trim();
     let category = document.getElementById('prodCat')?.value;
     let subcategory = document.getElementById('prodSubcat')?.value;
     let brand = document.getElementById('prodBrand')?.value;
     
     if (!title || title.length < 3) return alert('Title required (min 3 chars)');
-    if (!price || price <= 0) return alert('Enter a valid price');
+    if (!sellerPrice || sellerPrice <= 0) return alert('Enter your desired price');
     if (!loc) return alert('Enter a location');
     if (selectedPhotos.length === 0) return alert('Add at least 1 photo');
     
-    const loading = document.createElement('div');
-    loading.innerHTML = 'Uploading...';
-    document.getElementById('sellFormContainer').appendChild(loading);
+    const finalPrice = calculateFinalPrice(sellerPrice);
+    const commissionAmount = calculateCommission(finalPrice, sellerPrice);
+    
+    const loadingDiv = document.createElement('div');
+    loadingDiv.innerHTML = '<div style="text-align:center;padding:20px;">Uploading...</div>';
+    document.getElementById('sellFormContainer').appendChild(loadingDiv);
     
     try {
-        await addProduct({ title, price, location: loc, category, subcategory, brand, description: '' }, selectedPhotos);
-        alert('✅ Product listed successfully!');
+        const photoUrls = [];
+        for (let i = 0; i < selectedPhotos.length; i++) {
+            const storageRef = storage.ref().child(`products/${currentUser.id}/${Date.now()}_${i}.jpg`);
+            const base64Data = selectedPhotos[i].split(',')[1];
+            const blob = await fetch(`data:image/jpeg;base64,${base64Data}`).then(res => res.blob());
+            const uploadTask = await storageRef.put(blob);
+            const url = await uploadTask.ref.getDownloadURL();
+            photoUrls.push(url);
+        }
+        
+        await db.collection('products').add({
+            title: title,
+            category: category,
+            subcategory: subcategory || '',
+            brand: brand || '',
+            sellerPrice: sellerPrice,
+            finalPrice: finalPrice,
+            commission: commissionAmount,
+            commissionRate: COMMISSION_PERCENTAGE,
+            location: loc,
+            description: '',
+            photos: photoUrls,
+            sellerId: currentUser.id,
+            sellerName: currentUser.name,
+            sellerEmail: currentUser.email,
+            status: 'active',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        alert(`✅ Product listed!\n\nYou'll receive: N$${sellerPrice.toFixed(2)}\nBuyer pays: N$${finalPrice.toFixed(2)}`);
         closeSellModal();
         clearPhotos();
+        loadProducts();
     } catch (error) {
         alert('Error: ' + error.message);
     } finally {
-        loading.remove();
+        loadingDiv.remove();
     }
 }
 
 function closeSellModal() { document.getElementById('sellModal').style.display = 'none'; clearPhotos(); }
 
-// ============ PRODUCT DETAIL ============
-function openProductDetail(productId) {
-    const product = allProducts.find(p => p.id === productId);
-    if (!product) return;
-    
-    const photos = product.photos || [];
-    const galleryHtml = `<div class="detail-gallery" id="detailGallery">
-        ${photos.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('')}
-        ${photos.length > 1 ? `
-            <button onclick="changeGallery(-1)" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;">‹</button>
-            <button onclick="changeGallery(1)" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;">›</button>
-        ` : ''}
-    </div>`;
-    
-    document.getElementById('productDetailContent').innerHTML = `
-        ${galleryHtml}
-        <h3 style="margin-bottom:8px;">${escapeHtml(product.title)}</h3>
-        <div class="product-price">N$${product.price.toLocaleString()}</div>
-        <div>📍 ${escapeHtml(product.location)}</div>
-        <div>📁 ${escapeHtml(product.category)}${product.subcategory ? ` › ${escapeHtml(product.subcategory)}` : ''}</div>
-        <div>👤 ${escapeHtml(product.sellerName)}</div>
-        <div class="button-group" style="margin-top:16px;">
-            <button class="add-to-cart-btn" onclick="addToCart('${product.id}');closeProductDetailModal()">🛒 Add to Cart</button>
-            <button class="contact-seller-btn" onclick="openMessaging('${product.id}', '${product.sellerId}', '${escapeHtml(product.sellerName)}', '${escapeHtml(product.title)}');closeProductDetailModal()">💬 Message</button>
-        </div>
-        <button onclick="closeProductDetailModal()" style="width:100%;margin-top:12px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;">Close</button>
-    `;
-    window.currentDetailPhotos = photos;
-    window.detailIndex = 0;
-    document.getElementById('productDetailModal').style.display = 'flex';
-}
-
-function changeGallery(dir) {
-    if (!window.currentDetailPhotos) return;
-    window.detailIndex = (window.detailIndex + dir + window.currentDetailPhotos.length) % window.currentDetailPhotos.length;
-    const imgs = document.querySelectorAll('#detailGallery img');
-    imgs.forEach((img, i) => img.classList.toggle('active', i === window.detailIndex));
-}
-
-function closeProductDetailModal() { document.getElementById('productDetailModal').style.display = 'none'; }
-
 // ============ CART FUNCTIONS ============
 function addToCart(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
+    if (product.status === 'sold') { alert('This product has been sold!'); return; }
+    
+    const cartPrice = product.finalPrice || product.price;
+    
     const existing = cart.find(i => i.id === productId);
     if (existing) existing.quantity++;
-    else cart.push({ id: productId, title: product.title, price: product.price, coverPhoto: product.photos?.[0] || null, quantity: 1 });
+    else cart.push({ id: productId, title: product.title, price: cartPrice, sellerPrice: product.sellerPrice, coverPhoto: product.photos?.[0] || null, quantity: 1 });
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
     alert(`Added ${product.title} to cart`);
@@ -788,60 +762,322 @@ function updateQty(idx, delta) {
 }
 
 function toggleCart() { document.getElementById('cartDrawer').classList.toggle('open'); }
-function checkout() {
-    if (cart.length === 0) return;
-    const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-    alert(`🎉 Checkout Complete!\nTotal: N$${total.toLocaleString()}\n\nThank you for shopping on NAWA!`);
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartUI();
-    toggleCart();
+function closeCartDrawer() { document.getElementById('cartDrawer').classList.remove('open'); }
+
+// ============ SELLER DASHBOARD ============
+async function viewSellerDashboard() {
+    if (!currentUser) { alert('Please sign in'); openAuthModal('login'); return; }
+    
+    const myProducts = allProducts.filter(p => p.sellerId === currentUser.id);
+    const mySoldProducts = myProducts.filter(p => p.status === 'sold');
+    const myActiveProducts = myProducts.filter(p => p.status !== 'sold');
+    const totalEarnings = mySoldProducts.reduce((sum, p) => sum + (p.sellerPrice || 0), 0);
+    const totalCommission = mySoldProducts.reduce((sum, p) => sum + (p.commission || 0), 0);
+    
+    document.getElementById('adminContent').innerHTML = `
+        <h2>📊 Seller Dashboard</h2>
+        <div style="margin: 20px 0; padding: 16px; background: #f8fafc; border-radius: 12px;">
+            <h3>💰 Earnings Summary</h3>
+            <p>Active Listings: <strong>${myActiveProducts.length}</strong></p>
+            <p>Sold Items: <strong>${mySoldProducts.length}</strong></p>
+            <p>Total Earnings: <strong style="color:#10b981;">N$${totalEarnings.toFixed(2)}</strong></p>
+            <p>Total Commission Paid: <strong style="color:#f97316;">N$${totalCommission.toFixed(2)}</strong></p>
+        </div>
+        <div style="margin: 20px 0;">
+            <h3>📦 Your Products</h3>
+            ${myProducts.map(p => `<div style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>${escapeHtml(p.title)}</strong> <span style="float:right;">${p.status === 'sold' ? '✅ Sold' : '🟢 Active'}</span><br><small>Listed: N$${p.sellerPrice?.toFixed(2)}</small>${p.status === 'sold' ? `<br><small>Sold for: N$${p.finalPrice?.toFixed(2)}</small>` : ''}</div>`).join('') || '<p>No products yet.</p>'}
+        </div>
+        <button onclick="closeAdminDashboard()" class="submit-btn">Close</button>
+    `;
+    document.getElementById('adminModal').style.display = 'flex';
 }
+
+// ============ COMPLETE PAYMENT FUNCTIONS ============
+async function completePurchase(paymentMethod, amount, status = 'completed', paymentDetails = null) {
+    if (!currentUser) return;
+    
+    try {
+        const commissionAmount = amount * COMMISSION_RATE;
+        const sellerPayout = amount - commissionAmount;
+        
+        const orderData = {
+            orderId: generateOrderId(),
+            buyerId: currentUser.id,
+            buyerName: currentUser.name,
+            buyerEmail: currentUser.email,
+            items: cart.map(item => ({
+                productId: item.id,
+                title: item.title,
+                price: item.price,
+                quantity: item.quantity,
+                sellerPrice: item.sellerPrice || (item.price / (1 - COMMISSION_RATE))
+            })),
+            totalAmount: amount,
+            commissionAmount: commissionAmount,
+            sellerPayout: sellerPayout,
+            paymentMethod: paymentMethod,
+            status: status,
+            paymentStatus: status === 'completed' ? 'paid' : 'awaiting_payment',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            commissionRate: COMMISSION_PERCENTAGE,
+            currency: 'NAD',
+            paymentDetails: paymentDetails || null
+        };
+        
+        const orderRef = await db.collection('orders').add(orderData);
+        
+        if (status === 'completed') {
+            for (const item of cart) {
+                await db.collection('products').doc(item.id).update({
+                    status: 'sold',
+                    soldAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    buyerId: currentUser.id,
+                    orderId: orderRef.id,
+                    orderNumber: orderData.orderId
+                });
+            }
+            
+            await db.collection('commissions').add({
+                orderId: orderRef.id,
+                orderNumber: orderData.orderId,
+                amount: commissionAmount,
+                rate: COMMISSION_PERCENTAGE,
+                sellerId: cart[0]?.sellerId || 'unknown',
+                buyerId: currentUser.id,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                paidToPlatform: true,
+                paymentMethod: paymentMethod
+            });
+            
+            alert(`✅ Payment Successful!\n\nOrder ID: ${orderData.orderId}\nTotal: N$${amount.toFixed(2)}\nNAWA Commission: N$${commissionAmount.toFixed(2)}\nSeller Receives: N$${sellerPayout.toFixed(2)}\n\nThank you for shopping on NAWA!`);
+            
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+            closePaymentModal();
+            closeCartDrawer();
+            loadProducts();
+        } else {
+            alert(`✅ Order Created!\n\nOrder ID: ${orderData.orderId}\nAmount: N$${amount.toFixed(2)}\n\nYour order is ${status}. We'll notify you once payment is confirmed.`);
+            closePaymentModal();
+        }
+    } catch (error) {
+        console.error('Purchase error:', error);
+        alert('❌ Payment failed: ' + error.message);
+    }
+}
+
+// ============ PAYMENT MODAL WITH ALL 8 OPTIONS ============
+function showPaymentOptions() {
+    if (!currentUser) { alert('Please sign in to checkout'); openAuthModal('login'); return; }
+    if (cart.length === 0) { alert('Your cart is empty'); return; }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const commissionOnSale = total * COMMISSION_RATE;
+    
+    document.getElementById('paymentContent').innerHTML = `
+        <div style="text-align: center;">
+            <h2 style="margin-bottom: 20px;">🇳🇦 Choose Payment Method</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="text-align: left;">🌍 International</h3>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="processPayPalPayment(${total})"><div class="payment-icon">💳</div><div class="payment-option-name">PayPal</div><div style="font-size:10px;">International</div></div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="text-align: left;">💳 Cards</h3>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="processCardPayment(${total})"><div class="payment-icon">💳</div><div class="payment-option-name">Visa/Mastercard</div><div style="font-size:10px;">Debit & Credit</div></div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="text-align: left;">📱 Mobile Money</h3>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="processEWallet(${total})"><div class="payment-icon">📱</div><div class="payment-option-name">FNB eWallet</div><div style="font-size:10px;">Send to any phone</div></div>
+                    <div class="payment-option" onclick="processPayToday(${total})"><div class="payment-icon">💰</div><div class="payment-option-name">PayToday</div><div style="font-size:10px;">Mobile payments</div></div>
+                    <div class="payment-option" onclick="processBlueWallet(${total})"><div class="payment-icon">💙</div><div class="payment-option-name">blueWallet</div><div style="font-size:10px;">Standard Bank</div></div>
+                    <div class="payment-option" onclick="processMobiPay(${total})"><div class="payment-icon">📲</div><div class="payment-option-name">MobiPay</div><div style="font-size:10px;">Mobile payments</div></div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="text-align: left;">🏦 Bank Transfers</h3>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="processEFT(${total})"><div class="payment-icon">🏦</div><div class="payment-option-name">EFT / NamPay</div><div style="font-size:10px;">Instant transfers</div></div>
+                    <div class="payment-option" onclick="processCashDeposit(${total})"><div class="payment-icon">💵</div><div class="payment-option-name">Cash Deposit</div><div style="font-size:10px;">ATM or Branch</div></div>
+                </div>
+            </div>
+            
+            <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
+                <h3>Order Summary</h3>
+                <p>Subtotal: <strong>N$${total.toFixed(2)}</strong></p>
+                <p>NAWA Commission (${COMMISSION_PERCENTAGE}%): <strong style="color:#f97316;">N$${commissionOnSale.toFixed(2)}</strong></p>
+                <hr><p><strong>Total: N$${total.toFixed(2)}</strong></p>
+            </div>
+            <button onclick="closePaymentModal()" style="margin-top:20px;padding:12px 24px;background:#64748b;border:none;border-radius:40px;cursor:pointer;">Cancel</button>
+        </div>
+    `;
+    document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closePaymentModal() { document.getElementById('paymentModal').style.display = 'none'; }
+
+// ============ PAYMENT METHOD FUNCTIONS ============
+function processPayPalPayment(amount) {
+    alert(`💳 PayPal Checkout\n\nTotal: N$${amount.toFixed(2)}\n\nIn production, this would redirect to PayPal for payment.\n\nFor demo purposes, this is a simulation.`);
+    simulatePayment('PayPal', amount);
+}
+
+function processCardPayment(amount) {
+    alert(`💳 Card Payment\n\nTotal: N$${amount.toFixed(2)}\n\nIn production, this would open a secure card payment form.\n\nFor demo purposes, this is a simulation.`);
+    simulatePayment('Visa/Mastercard', amount);
+}
+
+function processEWallet(amount) {
+    let phone = prompt('Enter your mobile number for FNB eWallet:', '081 234 5678');
+    if (phone) {
+        alert(`📱 FNB eWallet Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment instructions sent to ${phone}\n\nComplete payment via FNB app or ATM.`);
+        simulatePayment('FNB eWallet', amount);
+    }
+}
+
+function processPayToday(amount) {
+    let phone = prompt('Enter your PayToday mobile number:', '081 234 5678');
+    if (phone) {
+        alert(`💰 PayToday Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment request sent to ${phone}\n\nOpen PayToday app to complete.`);
+        simulatePayment('PayToday', amount);
+    }
+}
+
+function processBlueWallet(amount) {
+    let username = prompt('Enter your blueWallet username:', 'username');
+    if (username) {
+        alert(`💙 blueWallet Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment request sent to ${username}\n\nLog in to Standard Bank app to complete.`);
+        simulatePayment('blueWallet', amount);
+    }
+}
+
+function processMobiPay(amount) {
+    let phone = prompt('Enter your MobiPay mobile number:', '081 234 5678');
+    if (phone) {
+        alert(`📲 MobiPay Payment\n\nTotal: N$${amount.toFixed(2)}\n\nSMS sent to ${phone} with payment PIN.\n\nUse PIN to complete payment.`);
+        simulatePayment('MobiPay', amount);
+    }
+}
+
+function processEFT(amount) {
+    alert(`🏦 Bank Transfer (EFT/NamPay)\n\nTotal: N$${amount.toFixed(2)}\n\nNAWA Bank Details:\nBank: FNB Namibia\nAccount: NAWA Marketplace Pty Ltd\nAccount #: 627 456 7890\nBranch: 280-172\nReference: ${generateOrderId()}\n\nUse NamPay for instant transfer.`);
+    simulatePayment('EFT/NamPay', amount);
+}
+
+function processCashDeposit(amount) {
+    alert(`💵 Cash Deposit\n\nTotal: N$${amount.toFixed(2)}\n\nDeposit at any FNB ATM or branch:\nAccount: NAWA Marketplace\nAccount #: 627 456 7890\n\nUpload proof of payment after deposit.`);
+    simulatePayment('Cash Deposit', amount);
+}
+
+function simulatePayment(method, amount) {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.innerHTML = '<div style="text-align:center;padding:20px;">Processing payment...</div>';
+    document.getElementById('paymentContent').appendChild(loadingDiv);
+    setTimeout(() => {
+        loadingDiv.remove();
+        completePurchase(method, amount, 'completed');
+    }, 1500);
+}
+
+// ============ PRODUCT DETAIL ============
+function openProductDetail(productId) {
+    const product = allProducts.find(p => p.id === productId);
+    if (!product) return;
+    
+    const photos = product.photos || [];
+    const displayPrice = product.finalPrice || product.price;
+    
+    document.getElementById('productDetailContent').innerHTML = `
+        <div class="detail-gallery" id="detailGallery">
+            ${photos.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('')}
+            ${photos.length > 1 ? `<button onclick="changeGallery(-1)" style="position:absolute;left:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;">‹</button><button onclick="changeGallery(1)" style="position:absolute;right:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;">›</button>` : ''}
+        </div>
+        <h3>${escapeHtml(product.title)}</h3>
+        <div class="product-price">N$${displayPrice.toLocaleString()}</div>
+        ${product.commission ? `<div style="font-size:12px;">Includes ${product.commissionRate || COMMISSION_PERCENTAGE}% NAWA fee</div>` : ''}
+        <div>📍 ${escapeHtml(product.location)}</div>
+        <div>📁 ${escapeHtml(product.category)}${product.subcategory ? ` › ${escapeHtml(product.subcategory)}` : ''}</div>
+        <div>👤 ${escapeHtml(product.sellerName)}</div>
+        ${product.status !== 'sold' ? `
+        <div class="button-group" style="margin-top:16px;">
+            <button class="add-to-cart-btn" onclick="addToCart('${product.id}');closeProductDetailModal()">🛒 Add to Cart</button>
+            <button class="contact-seller-btn" onclick="openMessaging('${product.id}', '${product.sellerId}', '${escapeHtml(product.sellerName)}', '${escapeHtml(product.title)}');closeProductDetailModal()">💬 Message</button>
+        </div>` : '<div style="margin-top:16px;padding:12px;background:#fee;text-align:center;">Sold Out</div>'}
+        <button onclick="closeProductDetailModal()" style="width:100%;margin-top:12px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;">Close</button>
+    `;
+    window.currentDetailPhotos = photos;
+    window.detailIndex = 0;
+    document.getElementById('productDetailModal').style.display = 'flex';
+}
+
+function changeGallery(dir) {
+    if (!window.currentDetailPhotos) return;
+    window.detailIndex = (window.detailIndex + dir + window.currentDetailPhotos.length) % window.currentDetailPhotos.length;
+    document.querySelectorAll('#detailGallery img').forEach((img, i) => img.classList.toggle('active', i === window.detailIndex));
+}
+
+function closeProductDetailModal() { document.getElementById('productDetailModal').style.display = 'none'; }
+
+// ============ MESSAGING ============
+async function openMessaging(productId, sellerId, sellerName, productTitle) {
+    if (!currentUser) { alert('Sign in to message'); openAuthModal('login'); return; }
+    currentChatProduct = { id: productId, title: productTitle };
+    currentChatSeller = { id: sellerId, name: sellerName };
+    const conversationId = [currentUser.id, sellerId].sort().join('_') + '_' + productId;
+    
+    db.collection('messages').where('conversationId', '==', conversationId).orderBy('timestamp', 'asc').onSnapshot((snapshot) => {
+        let msgHtml = '';
+        snapshot.forEach(doc => {
+            const msg = doc.data();
+            const isSent = msg.senderId === currentUser.id;
+            msgHtml += `<div class="message-bubble ${isSent ? 'sent' : 'received'}"><strong>${escapeHtml(msg.senderName)}</strong><br>${escapeHtml(msg.text)}<br><small>${msg.timestamp?.toDate ? new Date(msg.timestamp.toDate()).toLocaleTimeString() : ''}</small></div>`;
+        });
+        if (!msgHtml) msgHtml = '<div style="text-align:center;padding:40px;">Start your conversation!</div>';
+        document.getElementById('messageList').innerHTML = msgHtml;
+        document.getElementById('messageList').scrollTop = document.getElementById('messageList').scrollHeight;
+    });
+    document.getElementById('chatTitle').innerHTML = `💬 Chat: ${escapeHtml(productTitle)} with ${escapeHtml(sellerName)}`;
+    document.getElementById('messagingModal').style.display = 'flex';
+}
+
+async function sendMessage() {
+    const msgText = document.getElementById('chatInput').value.trim();
+    if (!msgText || !currentUser || !currentChatProduct || !currentChatSeller) return;
+    const conversationId = [currentUser.id, currentChatSeller.id].sort().join('_') + '_' + currentChatProduct.id;
+    await db.collection('messages').add({ conversationId, productId: currentChatProduct.id, productTitle: currentChatProduct.title, senderId: currentUser.id, senderName: currentUser.name, receiverId: currentChatSeller.id, receiverName: currentChatSeller.name, text: msgText, timestamp: firebase.firestore.FieldValue.serverTimestamp(), read: false });
+    document.getElementById('chatInput').value = '';
+}
+
+function closeMessagingModal() { document.getElementById('messagingModal').style.display = 'none'; }
 
 // ============ AUTH MODALS ============
 function openAuthModal(mode) {
-    document.getElementById('authModalContent').innerHTML = mode === 'login'
-        ? `<h2 style="margin-bottom:16px;">Sign In to NAWA</h2>
-           <div class="form-group"><input id="loginEmail" placeholder="Email" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;"></div>
-           <div class="form-group"><input id="loginPass" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;"></div>
-           <button onclick="loginUser(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)" class="submit-btn">Sign In</button>
-           <p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('register')" style="color:#f97316;cursor:pointer;">Create account</a></p>
-           <button onclick="closeAuthModal()" style="width:100%;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;">Cancel</button>`
-        : `<h2 style="margin-bottom:16px;">Join NAWA</h2>
-           <div class="form-group"><input id="regName" placeholder="Full Name" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;"></div>
-           <div class="form-group"><input id="regEmail" placeholder="Email" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;"></div>
-           <div class="form-group"><input id="regPass" type="password" placeholder="Password (min 6 chars)" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;"></div>
-           <button onclick="registerUser(document.getElementById('regName').value, document.getElementById('regEmail').value, document.getElementById('regPass').value)" class="submit-btn">Create Account</button>
-           <p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('login')" style="color:#f97316;cursor:pointer;">Already have account?</a></p>
-           <button onclick="closeAuthModal()" style="width:100%;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;">Cancel</button>`;
+    document.getElementById('authModalContent').innerHTML = mode === 'login' ?
+        `<h2>Sign In</h2><div class="form-group"><input id="loginEmail" placeholder="Email" class="card-input"></div><div class="form-group"><input id="loginPass" type="password" placeholder="Password" class="card-input"></div><button onclick="loginUser(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)" class="submit-btn">Sign In</button><p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('register')" style="color:#f97316;cursor:pointer;">Create account</a></p><button onclick="closeAuthModal()" style="margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;width:100%;">Cancel</button>` :
+        `<h2>Join NAWA</h2><div class="form-group"><input id="regName" placeholder="Full Name" class="card-input"></div><div class="form-group"><input id="regEmail" placeholder="Email" class="card-input"></div><div class="form-group"><input id="regPass" type="password" placeholder="Password (min 6 chars)" class="card-input"></div><button onclick="registerUser(document.getElementById('regName').value, document.getElementById('regEmail').value, document.getElementById('regPass').value)" class="submit-btn">Create Account</button><p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('login')" style="color:#f97316;cursor:pointer;">Already have account?</a></p><button onclick="closeAuthModal()" style="margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;width:100%;">Cancel</button>`;
     document.getElementById('authModal').style.display = 'flex';
 }
 
 function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
 function closeAdminDashboard() { document.getElementById('adminModal').style.display = 'none'; }
 
-// ============ HELPER FUNCTIONS ============
-function escapeHtml(str) {
-    if (!str) return '';
-    return String(str).replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
-}
-
-function formatNAD(p) { return `N$${Number(p).toLocaleString()}`; }
-
+// ============ UI HELPERS ============
 function useCurrentLocation() {
     if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => {
         document.getElementById('googleMap').src = `https://maps.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}&z=10&output=embed`;
     });
 }
 
-function updateMap(loc) {
-    document.getElementById('googleMap').src = `https://maps.google.com/maps?q=${encodeURIComponent(loc + ',Namibia')}&z=8&output=embed`;
-}
+function updateMap(loc) { document.getElementById('googleMap').src = `https://maps.google.com/maps?q=${encodeURIComponent(loc + ',Namibia')}&z=8&output=embed`; }
 
 function populateUI() {
     buildCategoryDropdown();
@@ -849,36 +1085,22 @@ function populateUI() {
     document.getElementById('regionQuickList').innerHTML = regions.map(r => `<li onclick="updateMap('${r}')">📍 ${r}</li>`).join('');
 }
 
-// Setup messaging modal content
 document.getElementById('messagingContent').innerHTML = `
-    <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
-        <h3 id="chatTitle">Chat with Seller</h3>
-        <span onclick="closeMessagingModal()" style="font-size:24px;cursor:pointer;">×</span>
-    </div>
+    <div style="display:flex;justify-content:space-between;"><h3 id="chatTitle">Chat with Seller</h3><span onclick="closeMessagingModal()" style="font-size:24px;cursor:pointer;">×</span></div>
     <div class="message-container" id="messageList"></div>
-    <div class="message-input-area">
-        <input type="text" id="chatInput" class="message-input" placeholder="Type your message...">
-        <button class="send-msg-btn" onclick="sendMessage()">Send</button>
-    </div>
+    <div class="message-input-area"><input type="text" id="chatInput" class="message-input" placeholder="Type your message..."><button class="send-msg-btn" onclick="sendMessage()">Send</button></div>
 `;
 
-// ============ INITIALIZATION ============
 async function init() {
     populateUI();
     updateCartUI();
     updateAuthUI();
     loadProducts();
-    
-    // Fetch exchange rate
     try {
         const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
         const data = await res.json();
-        if (data?.rates?.NAD) {
-            document.getElementById('exchangeRateDisplay').innerHTML = `💱 $1 USD = N$${data.rates.NAD.toFixed(2)} <span class="live-badge">LIVE</span>`;
-        }
-    } catch(e) {
-        document.getElementById('exchangeRateDisplay').innerHTML = `💱 $1 USD ≈ N$18.50 <span class="live-badge">LIVE</span>`;
-    }
+        if (data?.rates?.NAD) document.getElementById('exchangeRateDisplay').innerHTML = `💱 $1 USD = N$${data.rates.NAD.toFixed(2)} <span class="live-badge">LIVE</span>`;
+    } catch(e) { document.getElementById('exchangeRateDisplay').innerHTML = `💱 $1 USD ≈ N$18.50 <span class="live-badge">LIVE</span>`; }
 }
 
 init();
