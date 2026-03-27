@@ -45,7 +45,6 @@
         .sidebar { width: 320px; flex-shrink: 0; }
         .content-area { flex: 1; min-width: 280px; }
         
-        /* Unified Shop & Filter Section */
         .shop-filter-section {
             background: white; border-radius: 24px; padding: 22px; margin-bottom: 24px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #eef2ff;
@@ -54,13 +53,11 @@
             font-size: 18px; font-weight: bold; border-left: 4px solid #f97316; padding-left: 12px; margin-bottom: 18px;
         }
         
-        /* Accordion Styles */
         .filter-accordion {
             border: 1px solid #eef2ff;
             border-radius: 16px;
             margin-bottom: 12px;
             overflow: hidden;
-            transition: all 0.3s;
         }
         .filter-accordion-header {
             background: #f8fafc;
@@ -71,14 +68,9 @@
             justify-content: space-between;
             font-weight: 600;
             font-size: 15px;
-            transition: 0.2s;
         }
         .filter-accordion-header:hover {
             background: #fef3e8;
-        }
-        .filter-accordion-header .icon {
-            font-size: 20px;
-            margin-right: 12px;
         }
         .filter-accordion-header .title {
             flex: 1;
@@ -118,7 +110,6 @@
         .apply-filters-btn { background: #f97316; color: white; }
         .reset-filters-btn { background: #94a3b8; color: white; }
         
-        /* Location Search Styles */
         .location-search-btn {
             width: 100%;
             padding: 12px;
@@ -132,12 +123,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
             margin-bottom: 12px;
-        }
-        .location-search-btn:hover {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            transform: translateY(-1px);
         }
         .location-dropdown {
             display: none;
@@ -153,26 +139,12 @@
             margin-top: 8px;
             padding: 12px;
         }
-        .location-dropdown.open {
-            display: block;
-        }
-        #locationSearchInput {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-        .location-suggestions {
-            max-height: 200px;
-            overflow-y: auto;
-        }
+        .location-dropdown.open { display: block; }
+        .location-suggestions { max-height: 200px; overflow-y: auto; }
         .location-suggestion-item {
             padding: 10px;
             cursor: pointer;
             border-radius: 8px;
-            transition: 0.2s;
         }
         .location-suggestion-item:hover {
             background: #fef3e8;
@@ -186,9 +158,6 @@
             font-size: 13px;
             display: inline-block;
         }
-        .selected-location span {
-            margin-right: 8px;
-        }
         .clear-location {
             cursor: pointer;
             color: #ef4444;
@@ -198,19 +167,19 @@
         
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 18px; }
         .product-card {
-            background: white; border-radius: 24px; overflow: hidden; transition: 0.2s;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #edf2f7;
+            background: white; border-radius: 24px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #edf2f7;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         .product-image {
-            height: 200px; background: #f8fafc; display: flex; align-items: center;
-            justify-content: center; overflow: hidden; position: relative;
+            height: 200px; background: #f8fafc; display: flex;
+            align-items: center; justify-content: center; overflow: hidden; position: relative;
         }
         .product-image img { width: 100%; height: 100%; object-fit: cover; }
         .photo-count-badge {
             position: absolute; bottom: 8px; right: 8px;
             background: rgba(0,0,0,0.6); color: white; border-radius: 30px;
-            padding: 3px 10px; font-size: 11px; font-weight: bold;
+            padding: 3px 10px; font-size: 11px;
         }
         .product-info { padding: 16px; }
         .product-title { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
@@ -285,9 +254,6 @@
             cursor: pointer;
             text-decoration: none;
         }
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
         .submit-btn { background: linear-gradient(135deg, #f97316, #f59e0b); color: white; padding: 12px; border: none; border-radius: 40px; width: 100%; font-weight: bold; cursor: pointer; }
         .footer { background: white; padding: 30px; text-align: center; margin-top: 40px; border-top: 1px solid #e2e8f0; color: #64748b; }
         .fee-note { font-size: 12px; color: #64748b; text-align: center; margin-top: 12px; padding: 8px; background: #f8fafc; border-radius: 12px; }
@@ -311,15 +277,8 @@
             border-color: #f97316;
             transform: translateY(-2px);
         }
-        .payment-option .payment-icon {
-            font-size: 40px;
-            margin-bottom: 8px;
-        }
-        .payment-option-name {
-            font-size: 12px;
-            font-weight: 600;
-            color: #334155;
-        }
+        .payment-option .payment-icon { font-size: 40px; margin-bottom: 8px; }
+        .payment-option-name { font-size: 12px; font-weight: 600; color: #334155; }
         
         .search-wrapper { flex: 1; display: flex; position: relative; flex-wrap: wrap; gap: 12px; }
         .search-input-group { flex: 1; display: flex; position: relative; }
@@ -342,7 +301,6 @@
         .clear-category { cursor: pointer; font-weight: bold; }
         
         .card-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; margin-bottom: 12px; }
-        
         .product-search-input {
             width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 50px; font-size: 16px;
             transition: all 0.3s;
@@ -384,17 +342,12 @@
 
 <div class="main-container">
     <div class="sidebar">
-        <!-- Unified Shop & Filter Section -->
         <div class="shop-filter-section">
             <div class="section-header">🔍 Shop & Filter</div>
             
-            <!-- Accordion 1: Shop by Product -->
             <div class="filter-accordion">
                 <div class="filter-accordion-header" onclick="toggleAccordion('productAccordion')">
-                    <div class="title">
-                        <span class="icon">🔍</span>
-                        <span>Shop by Product</span>
-                    </div>
+                    <div class="title"><span class="icon">🔍</span><span>Shop by Product</span></div>
                     <span class="arrow">▼</span>
                 </div>
                 <div id="productAccordion" class="filter-accordion-content">
@@ -404,43 +357,28 @@
                 </div>
             </div>
             
-            <!-- Accordion 2: Shop by Location -->
             <div class="filter-accordion">
                 <div class="filter-accordion-header" onclick="toggleAccordion('locationAccordion')">
-                    <div class="title">
-                        <span class="icon">📍</span>
-                        <span>Shop by Location</span>
-                    </div>
+                    <div class="title"><span class="icon">📍</span><span>Shop by Location</span></div>
                     <span class="arrow">▼</span>
                 </div>
                 <div id="locationAccordion" class="filter-accordion-content">
                     <div class="filter-accordion-content-inner">
-                        <!-- Region Selection -->
                         <div class="filter-group">
                             <label>🗺️ Region</label>
                             <select id="regionFilter" onchange="applyFilters()">
                                 <option value="">All Regions</option>
-                                <option>Khomas</option>
-                                <option>Erongo</option>
-                                <option>Oshana</option>
-                                <option>Kavango East</option>
-                                <option>Zambezi</option>
-                                <option>Otjozondjupa</option>
-                                <option>Hardap</option>
-                                <option>Karas</option>
-                                <option>Kunene</option>
-                                <option>Ohangwena</option>
-                                <option>Omusati</option>
-                                <option>Oshikoto</option>
+                                <option>Khomas</option><option>Erongo</option><option>Oshana</option>
+                                <option>Kavango East</option><option>Zambezi</option><option>Otjozondjupa</option>
+                                <option>Hardap</option><option>Karas</option><option>Kunene</option>
+                                <option>Ohangwena</option><option>Omusati</option><option>Oshikoto</option>
                             </select>
                         </div>
-                        
-                        <!-- Town/Suburb/Village Search -->
                         <div class="filter-group">
                             <label>🏘️ Town / Suburb / Village</label>
                             <div style="position: relative;">
                                 <button id="locationSearchBtn" class="location-search-btn" onclick="toggleLocationDropdown()">
-                                    🔍 Search Location <span style="margin-left: 8px;">▼</span>
+                                    🔍 Search Location <span>▼</span>
                                 </button>
                                 <div id="locationDropdown" class="location-dropdown">
                                     <input type="text" id="locationSearchInput" placeholder="Enter town, suburb, or village..." onkeyup="filterLocationSuggestions()">
@@ -453,13 +391,9 @@
                 </div>
             </div>
             
-            <!-- Accordion 3: Filter by Price -->
             <div class="filter-accordion">
                 <div class="filter-accordion-header" onclick="toggleAccordion('priceAccordion')">
-                    <div class="title">
-                        <span class="icon">💰</span>
-                        <span>Filter by Price</span>
-                    </div>
+                    <div class="title"><span class="icon">💰</span><span>Filter by Price</span></div>
                     <span class="arrow">▼</span>
                 </div>
                 <div id="priceAccordion" class="filter-accordion-content">
@@ -472,7 +406,6 @@
                                 <input type="number" id="maxPrice" placeholder="Max" value="100000">
                             </div>
                         </div>
-                        
                         <button class="apply-filters-btn" onclick="applyFilters()">Apply Filters</button>
                         <button class="reset-filters-btn" onclick="resetFilters()">Reset Filters</button>
                     </div>
@@ -546,92 +479,6 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
 
-// ============ GOOGLE ANALYTICS TRACKING FUNCTIONS ============
-function trackPageView(pageTitle, pageLocation) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-            page_title: pageTitle,
-            page_location: pageLocation
-        });
-    }
-}
-
-function trackProductView(productName, productPrice, productId) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'view_item', {
-            currency: 'NAD',
-            value: productPrice,
-            items: [{
-                item_id: productId,
-                item_name: productName,
-                price: productPrice,
-                currency: 'NAD'
-            }]
-        });
-    }
-}
-
-function trackAddToCart(productName, productPrice, productId, quantity) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'add_to_cart', {
-            currency: 'NAD',
-            value: productPrice * quantity,
-            items: [{
-                item_id: productId,
-                item_name: productName,
-                price: productPrice,
-                quantity: quantity,
-                currency: 'NAD'
-            }]
-        });
-    }
-}
-
-function trackBeginCheckout(totalValue, cartItems) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'begin_checkout', {
-            currency: 'NAD',
-            value: totalValue,
-            items: cartItems.map(item => ({
-                item_id: item.id,
-                item_name: item.title,
-                price: item.price,
-                quantity: item.quantity
-            }))
-        });
-    }
-}
-
-function trackPurchase(orderId, totalValue, items) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'purchase', {
-            transaction_id: orderId,
-            currency: 'NAD',
-            value: totalValue,
-            items: items.map(item => ({
-                item_id: item.id,
-                item_name: item.title,
-                price: item.price,
-                quantity: item.quantity
-            }))
-        });
-    }
-}
-
-// ============ ACCORDION FUNCTION ============
-function toggleAccordion(accordionId) {
-    const content = document.getElementById(accordionId);
-    const header = content.previousElementSibling;
-    
-    if (content.classList.contains('active')) {
-        content.classList.remove('active');
-        header.classList.remove('active');
-    } else {
-        content.classList.add('active');
-        header.classList.add('active');
-    }
-}
-
 // ============ COMMISSION CONFIGURATION ============
 const COMMISSION_PERCENTAGE = 14;
 const COMMISSION_RATE = COMMISSION_PERCENTAGE / 100;
@@ -699,46 +546,43 @@ function escapeHtml(str) {
     });
 }
 
-// ============ PRODUCT SEARCH FUNCTION ============
+function toggleAccordion(accordionId) {
+    const content = document.getElementById(accordionId);
+    const header = content.previousElementSibling;
+    if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        header.classList.remove('active');
+    } else {
+        content.classList.add('active');
+        header.classList.add('active');
+    }
+}
+
 function filterByProductName() {
     productSearchTerm = document.getElementById('productSearchInput').value.toLowerCase();
     filterAndDisplay();
 }
 
-// ============ LOCATION SEARCH FUNCTIONS ============
 function toggleLocationDropdown() {
-    const dropdown = document.getElementById('locationDropdown');
-    dropdown.classList.toggle('open');
+    document.getElementById('locationDropdown').classList.toggle('open');
 }
 
 function filterLocationSuggestions() {
     const input = document.getElementById('locationSearchInput').value.toLowerCase();
     const suggestionsDiv = document.getElementById('locationSuggestions');
-    
-    if (!input) {
-        suggestionsDiv.innerHTML = '';
-        return;
-    }
-    
-    const filtered = NAMIBIAN_TOWNS.filter(town => 
-        town.toLowerCase().includes(input)
-    );
-    
+    if (!input) { suggestionsDiv.innerHTML = ''; return; }
+    const filtered = NAMIBIAN_TOWNS.filter(town => town.toLowerCase().includes(input));
     if (filtered.length === 0) {
         suggestionsDiv.innerHTML = '<div class="location-suggestion-item">No locations found</div>';
         return;
     }
-    
-    suggestionsDiv.innerHTML = filtered.map(town => 
-        `<div class="location-suggestion-item" onclick="selectTown('${town}')">📍 ${town}</div>`
-    ).join('');
+    suggestionsDiv.innerHTML = filtered.map(town => `<div class="location-suggestion-item" onclick="selectTown('${town}')">📍 ${town}</div>`).join('');
 }
 
 function selectTown(town) {
     currentSelectedTown = town;
     currentFilters.town = town;
-    const selectedDiv = document.getElementById('selectedLocation');
-    selectedDiv.innerHTML = `<span>📍 ${town}</span> <span class="clear-location" onclick="clearTown()">✕</span>`;
+    document.getElementById('selectedLocation').innerHTML = `<span>📍 ${town}</span> <span class="clear-location" onclick="clearTown()">✕</span>`;
     document.getElementById('locationSearchInput').value = town;
     toggleLocationDropdown();
     filterAndDisplay();
@@ -754,13 +598,8 @@ function clearTown() {
 
 // ============ AUTHENTICATION ============
 auth.onAuthStateChanged((user) => {
-    console.log(`Auth state: ${user ? `Logged in as ${user.email}` : 'Not logged in'}`);
     if (user) {
-        currentUser = {
-            id: user.uid,
-            name: user.displayName || user.email.split('@')[0],
-            email: user.email
-        };
+        currentUser = { id: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
         updateAuthUI();
         loadProducts();
     } else {
@@ -802,10 +641,7 @@ async function registerUser(name, email, password) {
 }
 
 async function resetPassword(email) {
-    if (!email) {
-        alert('Please enter your email address');
-        return;
-    }
+    if (!email) { alert('Please enter your email address'); return; }
     try {
         await auth.sendPasswordResetEmail(email);
         alert('✅ Password reset email sent! Check your inbox.');
@@ -815,21 +651,15 @@ async function resetPassword(email) {
     }
 }
 
-function logoutUser() {
-    auth.signOut();
-    alert('Logged out');
-}
+function logoutUser() { auth.signOut(); alert('Logged out'); }
 
 // ============ PRODUCT FUNCTIONS ============
 async function loadProducts() {
     const productsGrid = document.getElementById('productsGrid');
     productsGrid.innerHTML = '<div style="text-align:center;padding:40px;">Loading products...</div>';
-    
     db.collection('products').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
         allProducts = [];
-        snapshot.forEach(doc => {
-            allProducts.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { allProducts.push({ id: doc.id, ...doc.data() }); });
         filterAndDisplay();
     });
 }
@@ -840,11 +670,8 @@ function displayProducts(products) {
         grid.innerHTML = '<div class="empty-state"><div style="font-size:48px;">📭</div><h3>No Products Found</h3><button onclick="openSellModal()" style="background:#f97316;color:white;border:none;padding:12px 28px;border-radius:40px;margin-top:16px;">Start Selling</button></div>';
         return;
     }
-    
     grid.innerHTML = products.map(p => {
         const displayPrice = p.finalPrice || p.price;
-        const commissionNote = p.commission ? `<span style="font-size:10px; color:#666;">(+${p.commissionRate || COMMISSION_PERCENTAGE}% fee)</span>` : '';
-        
         return `
         <div class="product-card" onclick="openProductDetail('${p.id}')">
             <div class="product-image">
@@ -854,7 +681,7 @@ function displayProducts(products) {
             </div>
             <div class="product-info">
                 <div class="product-title">${escapeHtml(p.title)}</div>
-                <div class="product-price">N$${displayPrice.toLocaleString()} ${commissionNote}</div>
+                <div class="product-price">N$${displayPrice.toLocaleString()}</div>
                 <div>📍 ${escapeHtml(p.location)}</div>
                 <div style="font-size:12px;color:#666;">👤 ${escapeHtml(p.sellerName)}</div>
                 ${p.status !== 'sold' ? `
@@ -864,47 +691,23 @@ function displayProducts(products) {
                 </div>
                 ` : '<div style="margin-top:12px;padding:8px;background:#fee;text-align:center;border-radius:12px;">Sold Out</div>'}
             </div>
-        </div>
-    `}).join('');
+        </div>`;
+    }).join('');
 }
 
 function filterAndDisplay() {
     let filtered = [...allProducts];
-    
-    // Product name search filter
-    if (productSearchTerm) {
-        filtered = filtered.filter(p => p.title.toLowerCase().includes(productSearchTerm));
-    }
-    
-    // Price filter
-    filtered = filtered.filter(p => (p.finalPrice || p.price) >= currentFilters.minPrice && 
-                                    (p.finalPrice || p.price) <= currentFilters.maxPrice);
-    
-    // Town filter
-    if (currentSelectedTown) {
-        filtered = filtered.filter(p => p.location && 
-                                        p.location.toLowerCase().includes(currentSelectedTown.toLowerCase()));
-    }
-    
-    // Region filter
-    if (currentFilters.region) {
-        filtered = filtered.filter(p => p.location && p.location.includes(currentFilters.region));
-    }
-    
-    // Category filter
+    if (productSearchTerm) filtered = filtered.filter(p => p.title.toLowerCase().includes(productSearchTerm));
+    filtered = filtered.filter(p => (p.finalPrice || p.price) >= currentFilters.minPrice && (p.finalPrice || p.price) <= currentFilters.maxPrice);
+    if (currentSelectedTown) filtered = filtered.filter(p => p.location && p.location.toLowerCase().includes(currentSelectedTown.toLowerCase()));
+    if (currentFilters.region) filtered = filtered.filter(p => p.location && p.location.includes(currentFilters.region));
     if (currentFilterCat !== 'all') {
         filtered = filtered.filter(p => p.category === currentFilterCat);
         if (currentSubcategory) filtered = filtered.filter(p => p.subcategory === currentSubcategory);
     }
-    
-    // Category search term
     const searchTerm = document.getElementById('categorySearchInput').value.toLowerCase();
-    if (searchTerm) {
-        filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm));
-    }
-    
+    if (searchTerm) filtered = filtered.filter(p => p.title.toLowerCase().includes(searchTerm));
     displayProducts(filtered);
-    updateSelectedCategoryBadge();
 }
 
 function applyFilters() {
@@ -944,37 +747,19 @@ function clearCategoryFilter() {
     closeCategoryDropdown();
 }
 
-function updateSelectedCategoryBadge() {
-    let badgeDiv = document.getElementById('activeCategoryBadge');
-    if (currentFilterCat !== 'all') {
-        let displayText = `${currentFilterCat}${currentSubcategory ? ' › ' + currentSubcategory : ''}`;
-        badgeDiv.innerHTML = `<span class="selected-category-badge">📂 ${escapeHtml(displayText)} <span class="clear-category" onclick="clearCategoryFilter()">✕</span></span>`;
-    } else {
-        badgeDiv.innerHTML = '';
-    }
-}
-
 function buildCategoryDropdown() {
     let html = '';
     CATEGORIES.forEach((cat, idx) => {
-        html += `<div class="category-main-dropdown">
-            <div class="category-header-dropdown" onclick="toggleSubcategoryDropdown(${idx})">
-                <span>${cat.icon} ${cat.name}</span><span>▼</span>
-            </div>
-            <div class="subcategory-list-dropdown" id="subcat-dropdown-${idx}" style="display:none;">
-                ${cat.subcategories.map(sub => `<div class="subcategory-item-dropdown" onclick="filterCategory('${cat.name}', '${sub.replace(/'/g, "\\'")}'); event.stopPropagation();">📌 ${sub}</div>`).join('')}
-            </div>
-        </div>`;
+        html += `<div><div onclick="toggleSubcategoryDropdown(${idx})"><span>${cat.icon} ${cat.name}</span><span>▼</span></div>
+        <div id="subcat-dropdown-${idx}" style="display:none;">${cat.subcategories.map(sub => `<div onclick="filterCategory('${cat.name}', '${sub.replace(/'/g, "\\'")}');">📌 ${sub}</div>`).join('')}</div></div>`;
     });
-    html += `<div class="category-all-dropdown" onclick="clearCategoryFilter()">🌟 View All Products</div>`;
+    html += `<div onclick="clearCategoryFilter()">🌟 View All Products</div>`;
     document.getElementById('categoryDropdown').innerHTML = html;
 }
 
 function toggleSubcategoryDropdown(idx) {
     let subcatDiv = document.getElementById(`subcat-dropdown-${idx}`);
-    if (subcatDiv) {
-        subcatDiv.style.display = subcatDiv.style.display === 'none' ? 'block' : 'none';
-    }
+    if (subcatDiv) subcatDiv.style.display = subcatDiv.style.display === 'none' ? 'block' : 'none';
 }
 
 function toggleCategoryDropdown() {
@@ -993,11 +778,9 @@ document.addEventListener('click', function(event) {
     const locationDropdown = document.getElementById('locationDropdown');
     const categoryDropdown = document.getElementById('categoryDropdown');
     const categoryBtn = document.querySelector('.category-dropdown-btn');
-    
     if (locationBtn && locationDropdown && !locationBtn.contains(event.target) && !locationDropdown.contains(event.target)) {
         locationDropdown.classList.remove('open');
     }
-    
     if (categoryDropdown && categoryBtn && !categoryBtn.contains(event.target) && !categoryDropdown.contains(event.target)) {
         categoryDropdown.classList.remove('show');
         categoryDropdownOpen = false;
@@ -1039,10 +822,8 @@ function updatePricePreview() {
         document.getElementById('buyerPricePreview').innerText = 'N$0';
         return;
     }
-    
     const finalPrice = calculateFinalPrice(sellerPrice);
     const commission = calculateCommission(finalPrice, sellerPrice);
-    
     document.getElementById('sellerAmountPreview').innerHTML = `N$${sellerPrice.toFixed(2)}`;
     document.getElementById('commissionPreview').innerHTML = `N$${commission.toFixed(2)}`;
     document.getElementById('buyerPricePreview').innerHTML = `N$${finalPrice.toFixed(2)}`;
@@ -1050,7 +831,6 @@ function updatePricePreview() {
 
 function openSellModal() {
     if (!currentUser) { alert('Sign in to sell'); openAuthModal('login'); return; }
-    
     let categoryOptions = CATEGORIES.map(c => `<option value="${c.name}">${c.icon} ${c.name}</option>`).join('');
     document.getElementById('sellFormContainer').innerHTML = `
         <div class="form-group"><label>📸 Photos (up to 5) *</label>
@@ -1076,14 +856,12 @@ function openSellModal() {
         <div class="fee-note">💡 You set your desired price. NAWA adds ${COMMISSION_PERCENTAGE}% commission which the buyer pays.</div>
         <button class="submit-btn" onclick="submitProduct()">✅ List on NAWA</button>
     `;
-    
     document.getElementById('prodCat').addEventListener('change', function() {
         let catObj = CATEGORIES.find(c => c.name === this.value);
         let subcatHtml = '<option value="">Select subcategory</option>';
         if (catObj) subcatHtml += catObj.subcategories.map(s => `<option value="${s}">${s}</option>`).join('');
         document.getElementById('prodSubcat').innerHTML = subcatHtml;
     });
-    
     renderPhotoPreviews();
     document.getElementById('sellModal').style.display = 'flex';
 }
@@ -1107,18 +885,20 @@ async function submitProduct() {
     const commissionAmount = calculateCommission(finalPrice, sellerPrice);
     
     const loadingDiv = document.createElement('div');
-    loadingDiv.innerHTML = '<div style="text-align:center;padding:20px;">Uploading...</div>';
+    loadingDiv.innerHTML = '<div style="text-align:center;padding:20px;">Uploading photos... Please wait.</div>';
     document.getElementById('sellFormContainer').appendChild(loadingDiv);
     
     try {
         const photoUrls = [];
         for (let i = 0; i < selectedPhotos.length; i++) {
-            const storageRef = storage.ref().child(`products/${currentUser.id}/${Date.now()}_${i}.jpg`);
+            const fileName = `photo_${Date.now()}_${i}.jpg`;
+            const storageRef = storage.ref().child(`products/${currentUser.id}/${fileName}`);
             const base64Data = selectedPhotos[i].split(',')[1];
             const blob = await fetch(`data:image/jpeg;base64,${base64Data}`).then(res => res.blob());
-            const uploadTask = await storageRef.put(blob);
-            const url = await uploadTask.ref.getDownloadURL();
+            await storageRef.put(blob);
+            const url = await storageRef.getDownloadURL();
             photoUrls.push(url);
+            console.log(`Uploaded photo ${i+1}/${selectedPhotos.length}:`, url);
         }
         
         await db.collection('products').add({
@@ -1145,6 +925,7 @@ async function submitProduct() {
         clearPhotos();
         loadProducts();
     } catch (error) {
+        console.error('Upload error:', error);
         alert('Error: ' + error.message);
     } finally {
         loadingDiv.remove();
@@ -1158,17 +939,12 @@ function addToCart(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
     if (product.status === 'sold') { alert('This product has been sold!'); return; }
-    
     const cartPrice = product.finalPrice || product.price;
-    
     const existing = cart.find(i => i.id === productId);
     if (existing) existing.quantity++;
     else cart.push({ id: productId, title: product.title, price: cartPrice, sellerPrice: product.sellerPrice, coverPhoto: product.photos?.[0] || null, quantity: 1 });
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
-    
-    trackAddToCart(product.title, cartPrice, productId, 1);
-    
     alert(`Added ${product.title} to cart`);
 }
 
@@ -1196,18 +972,15 @@ function updateQty(idx, delta) {
 }
 
 function toggleCart() { document.getElementById('cartDrawer').classList.toggle('open'); }
-function closeCartDrawer() { document.getElementById('cartDrawer').classList.remove('open'); }
 
 // ============ SELLER DASHBOARD ============
 async function viewSellerDashboard() {
     if (!currentUser) { alert('Please sign in'); openAuthModal('login'); return; }
-    
     const myProducts = allProducts.filter(p => p.sellerId === currentUser.id);
     const mySoldProducts = myProducts.filter(p => p.status === 'sold');
     const myActiveProducts = myProducts.filter(p => p.status !== 'sold');
     const totalEarnings = mySoldProducts.reduce((sum, p) => sum + (p.sellerPrice || 0), 0);
     const totalCommission = mySoldProducts.reduce((sum, p) => sum + (p.commission || 0), 0);
-    
     document.getElementById('adminContent').innerHTML = `
         <h2>📊 Seller Dashboard</h2>
         <div style="margin: 20px 0; padding: 16px; background: #f8fafc; border-radius: 12px;">
@@ -1217,35 +990,26 @@ async function viewSellerDashboard() {
             <p>Total Earnings: <strong style="color:#10b981;">N$${totalEarnings.toFixed(2)}</strong></p>
             <p>Total Commission Paid: <strong style="color:#f97316;">N$${totalCommission.toFixed(2)}</strong></p>
         </div>
-        <div style="margin: 20px 0;">
-            <h3>📦 Your Products</h3>
-            ${myProducts.map(p => `<div style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>${escapeHtml(p.title)}</strong> <span style="float:right;">${p.status === 'sold' ? '✅ Sold' : '🟢 Active'}</span><br><small>Listed: N$${p.sellerPrice?.toFixed(2)}</small>${p.status === 'sold' ? `<br><small>Sold for: N$${p.finalPrice?.toFixed(2)}</small>` : ''}</div>`).join('') || '<p>No products yet.</p>'}
-        </div>
+        <div style="margin: 20px 0;"><h3>📦 Your Products</h3>${myProducts.map(p => `<div style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>${escapeHtml(p.title)}</strong> <span style="float:right;">${p.status === 'sold' ? '✅ Sold' : '🟢 Active'}</span><br><small>Listed: N$${p.sellerPrice?.toFixed(2)}</small>${p.status === 'sold' ? `<br><small>Sold for: N$${p.finalPrice?.toFixed(2)}</small>` : ''}</div>`).join('') || '<p>No products yet.</p>'}</div>
         <button onclick="closeAdminDashboard()" class="submit-btn">Close</button>
     `;
     document.getElementById('adminModal').style.display = 'flex';
 }
 
+function closeAdminDashboard() { document.getElementById('adminModal').style.display = 'none'; }
+
 // ============ COMPLETE PAYMENT FUNCTIONS ============
-async function completePurchase(paymentMethod, amount, status = 'completed', paymentDetails = null) {
+async function completePurchase(paymentMethod, amount, status = 'completed') {
     if (!currentUser) return;
-    
     try {
         const commissionAmount = amount * COMMISSION_RATE;
         const sellerPayout = amount - commissionAmount;
-        
         const orderData = {
             orderId: generateOrderId(),
             buyerId: currentUser.id,
             buyerName: currentUser.name,
             buyerEmail: currentUser.email,
-            items: cart.map(item => ({
-                productId: item.id,
-                title: item.title,
-                price: item.price,
-                quantity: item.quantity,
-                sellerPrice: item.sellerPrice || (item.price / (1 - COMMISSION_RATE))
-            })),
+            items: cart.map(item => ({ productId: item.id, title: item.title, price: item.price, quantity: item.quantity, sellerPrice: item.sellerPrice })),
             totalAmount: amount,
             commissionAmount: commissionAmount,
             sellerPayout: sellerPayout,
@@ -1254,39 +1018,15 @@ async function completePurchase(paymentMethod, amount, status = 'completed', pay
             paymentStatus: status === 'completed' ? 'paid' : 'awaiting_payment',
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             commissionRate: COMMISSION_PERCENTAGE,
-            currency: 'NAD',
-            paymentDetails: paymentDetails || null
+            currency: 'NAD'
         };
-        
         const orderRef = await db.collection('orders').add(orderData);
-        
         if (status === 'completed') {
             for (const item of cart) {
-                await db.collection('products').doc(item.id).update({
-                    status: 'sold',
-                    soldAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    buyerId: currentUser.id,
-                    orderId: orderRef.id,
-                    orderNumber: orderData.orderId
-                });
+                await db.collection('products').doc(item.id).update({ status: 'sold', soldAt: firebase.firestore.FieldValue.serverTimestamp(), buyerId: currentUser.id, orderId: orderRef.id, orderNumber: orderData.orderId });
             }
-            
-            await db.collection('commissions').add({
-                orderId: orderRef.id,
-                orderNumber: orderData.orderId,
-                amount: commissionAmount,
-                rate: COMMISSION_PERCENTAGE,
-                sellerId: cart[0]?.sellerId || 'unknown',
-                buyerId: currentUser.id,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                paidToPlatform: true,
-                paymentMethod: paymentMethod
-            });
-            
-            trackPurchase(orderData.orderId, amount, cart);
-            
+            await db.collection('commissions').add({ orderId: orderRef.id, orderNumber: orderData.orderId, amount: commissionAmount, rate: COMMISSION_PERCENTAGE, sellerId: cart[0]?.sellerId || 'unknown', buyerId: currentUser.id, createdAt: firebase.firestore.FieldValue.serverTimestamp(), paidToPlatform: true, paymentMethod: paymentMethod });
             alert(`✅ Payment Successful!\n\nOrder ID: ${orderData.orderId}\nTotal: N$${amount.toFixed(2)}\nNAWA Commission: N$${commissionAmount.toFixed(2)}\nSeller Receives: N$${sellerPayout.toFixed(2)}\n\nThank you for shopping on NAWA!`);
-            
             cart = [];
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartUI();
@@ -1303,156 +1043,37 @@ async function completePurchase(paymentMethod, amount, status = 'completed', pay
     }
 }
 
-// ============ PAYMENT MODAL WITH ALL 8 OPTIONS ============
+function closeCartDrawer() { document.getElementById('cartDrawer').classList.remove('open'); }
+
 function showPaymentOptions() {
     if (!currentUser) { alert('Please sign in to checkout'); openAuthModal('login'); return; }
     if (cart.length === 0) { alert('Your cart is empty'); return; }
-    
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const commissionOnSale = total * COMMISSION_RATE;
-    
-    trackBeginCheckout(total, cart);
-    
-    document.getElementById('paymentContent').innerHTML = `
-        <div style="text-align: center;">
-            <h2 style="margin-bottom: 20px;">🇳🇦 Choose Payment Method</h2>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="text-align: left;">🌍 International</h3>
-                <div class="payment-methods">
-                    <div class="payment-option" onclick="processPayPalPayment(${total})"><div class="payment-icon">💳</div><div class="payment-option-name">PayPal</div><div style="font-size:10px;">International</div></div>
-                </div>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="text-align: left;">💳 Cards</h3>
-                <div class="payment-methods">
-                    <div class="payment-option" onclick="processCardPayment(${total})"><div class="payment-icon">💳</div><div class="payment-option-name">Visa/Mastercard</div><div style="font-size:10px;">Debit & Credit</div></div>
-                </div>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="text-align: left;">📱 Mobile Money</h3>
-                <div class="payment-methods">
-                    <div class="payment-option" onclick="processEWallet(${total})"><div class="payment-icon">📱</div><div class="payment-option-name">FNB eWallet</div><div style="font-size:10px;">Send to any phone</div></div>
-                    <div class="payment-option" onclick="processPayToday(${total})"><div class="payment-icon">💰</div><div class="payment-option-name">PayToday</div><div style="font-size:10px;">Mobile payments</div></div>
-                    <div class="payment-option" onclick="processBlueWallet(${total})"><div class="payment-icon">💙</div><div class="payment-option-name">blueWallet</div><div style="font-size:10px;">Standard Bank</div></div>
-                    <div class="payment-option" onclick="processMobiPay(${total})"><div class="payment-icon">📲</div><div class="payment-option-name">MobiPay</div><div style="font-size:10px;">Mobile payments</div></div>
-                </div>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <h3 style="text-align: left;">🏦 Bank Transfers</h3>
-                <div class="payment-methods">
-                    <div class="payment-option" onclick="processEFT(${total})"><div class="payment-icon">🏦</div><div class="payment-option-name">EFT / NamPay</div><div style="font-size:10px;">Instant transfers</div></div>
-                    <div class="payment-option" onclick="processCashDeposit(${total})"><div class="payment-icon">💵</div><div class="payment-option-name">Cash Deposit</div><div style="font-size:10px;">ATM or Branch</div></div>
-                </div>
-            </div>
-            
-            <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                <h3>Order Summary</h3>
-                <p>Subtotal: <strong>N$${total.toFixed(2)}</strong></p>
-                <p>NAWA Commission (${COMMISSION_PERCENTAGE}%): <strong style="color:#f97316;">N$${commissionOnSale.toFixed(2)}</strong></p>
-                <hr><p><strong>Total: N$${total.toFixed(2)}</strong></p>
-            </div>
-            <button onclick="closePaymentModal()" style="margin-top:20px;padding:12px 24px;background:#64748b;border:none;border-radius:40px;cursor:pointer;">Cancel</button>
-        </div>
-    `;
+    document.getElementById('paymentContent').innerHTML = `<div style="text-align:center;"><h2>Choose Payment Method</h2><div class="payment-methods"><div class="payment-option" onclick="simulatePayment('PayPal', ${total})"><div class="payment-icon">💳</div><div class="payment-option-name">PayPal</div></div><div class="payment-option" onclick="simulatePayment('Card', ${total})"><div class="payment-icon">💳</div><div class="payment-option-name">Visa/Mastercard</div></div><div class="payment-option" onclick="simulatePayment('eWallet', ${total})"><div class="payment-icon">📱</div><div class="payment-option-name">FNB eWallet</div></div><div class="payment-option" onclick="simulatePayment('EFT', ${total})"><div class="payment-icon">🏦</div><div class="payment-option-name">EFT / NamPay</div></div></div><div style="padding:16px;"><h3>Total: N$${total.toFixed(2)}</h3></div><button onclick="closePaymentModal()">Cancel</button></div>`;
     document.getElementById('paymentModal').style.display = 'flex';
 }
 
 function closePaymentModal() { document.getElementById('paymentModal').style.display = 'none'; }
 
-// ============ PAYMENT METHOD FUNCTIONS ============
-function processPayPalPayment(amount) {
-    alert(`💳 PayPal Checkout\n\nTotal: N$${amount.toFixed(2)}\n\nIn production, this would redirect to PayPal for payment.\n\nFor demo purposes, this is a simulation.`);
-    simulatePayment('PayPal', amount);
-}
-
-function processCardPayment(amount) {
-    alert(`💳 Card Payment\n\nTotal: N$${amount.toFixed(2)}\n\nIn production, this would open a secure card payment form.\n\nFor demo purposes, this is a simulation.`);
-    simulatePayment('Visa/Mastercard', amount);
-}
-
-function processEWallet(amount) {
-    let phone = prompt('Enter your mobile number for FNB eWallet:', '081 234 5678');
-    if (phone) {
-        alert(`📱 FNB eWallet Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment instructions sent to ${phone}\n\nComplete payment via FNB app or ATM.`);
-        simulatePayment('FNB eWallet', amount);
-    }
-}
-
-function processPayToday(amount) {
-    let phone = prompt('Enter your PayToday mobile number:', '081 234 5678');
-    if (phone) {
-        alert(`💰 PayToday Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment request sent to ${phone}\n\nOpen PayToday app to complete.`);
-        simulatePayment('PayToday', amount);
-    }
-}
-
-function processBlueWallet(amount) {
-    let username = prompt('Enter your blueWallet username:', 'username');
-    if (username) {
-        alert(`💙 blueWallet Payment\n\nTotal: N$${amount.toFixed(2)}\n\nPayment request sent to ${username}\n\nLog in to Standard Bank app to complete.`);
-        simulatePayment('blueWallet', amount);
-    }
-}
-
-function processMobiPay(amount) {
-    let phone = prompt('Enter your MobiPay mobile number:', '081 234 5678');
-    if (phone) {
-        alert(`📲 MobiPay Payment\n\nTotal: N$${amount.toFixed(2)}\n\nSMS sent to ${phone} with payment PIN.\n\nUse PIN to complete payment.`);
-        simulatePayment('MobiPay', amount);
-    }
-}
-
-function processEFT(amount) {
-    alert(`🏦 Bank Transfer (EFT/NamPay)\n\nTotal: N$${amount.toFixed(2)}\n\nNAWA Bank Details:\nBank: FNB Namibia\nAccount: NAWA Marketplace Pty Ltd\nAccount #: 627 456 7890\nBranch: 280-172\nReference: ${generateOrderId()}\n\nUse NamPay for instant transfer.`);
-    simulatePayment('EFT/NamPay', amount);
-}
-
-function processCashDeposit(amount) {
-    alert(`💵 Cash Deposit\n\nTotal: N$${amount.toFixed(2)}\n\nDeposit at any FNB ATM or branch:\nAccount: NAWA Marketplace\nAccount #: 627 456 7890\n\nUpload proof of payment after deposit.`);
-    simulatePayment('Cash Deposit', amount);
-}
-
 function simulatePayment(method, amount) {
-    const loadingDiv = document.createElement('div');
-    loadingDiv.innerHTML = '<div style="text-align:center;padding:20px;">Processing payment...</div>';
-    document.getElementById('paymentContent').appendChild(loadingDiv);
-    setTimeout(() => {
-        loadingDiv.remove();
-        completePurchase(method, amount, 'completed');
-    }, 1500);
+    setTimeout(() => { completePurchase(method, amount, 'completed'); }, 1500);
 }
 
 // ============ PRODUCT DETAIL ============
 function openProductDetail(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
-    
     const photos = product.photos || [];
     const displayPrice = product.finalPrice || product.price;
-    
-    trackProductView(product.title, displayPrice, productId);
-    
     document.getElementById('productDetailContent').innerHTML = `
-        <div class="detail-gallery" id="detailGallery">
-            ${photos.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('')}
-            ${photos.length > 1 ? `<button onclick="changeGallery(-1)" style="position:absolute;left:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;">‹</button><button onclick="changeGallery(1)" style="position:absolute;right:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;">›</button>` : ''}
-        </div>
+        <div class="detail-gallery" id="detailGallery">${photos.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('')}${photos.length > 1 ? `<button onclick="changeGallery(-1)" style="position:absolute;left:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;">‹</button><button onclick="changeGallery(1)" style="position:absolute;right:8px;top:50%;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:36px;height:36px;">›</button>` : ''}</div>
         <h3>${escapeHtml(product.title)}</h3>
         <div class="product-price">N$${displayPrice.toLocaleString()}</div>
-        ${product.commission ? `<div style="font-size:12px;">Includes ${product.commissionRate || COMMISSION_PERCENTAGE}% NAWA fee</div>` : ''}
         <div>📍 ${escapeHtml(product.location)}</div>
         <div>📁 ${escapeHtml(product.category)}${product.subcategory ? ` › ${escapeHtml(product.subcategory)}` : ''}</div>
         <div>👤 ${escapeHtml(product.sellerName)}</div>
-        ${product.status !== 'sold' ? `
-        <div class="button-group" style="margin-top:16px;">
-            <button class="add-to-cart-btn" onclick="addToCart('${product.id}');closeProductDetailModal()">🛒 Add to Cart</button>
-            <button class="contact-seller-btn" onclick="openMessaging('${product.id}', '${product.sellerId}', '${escapeHtml(product.sellerName)}', '${escapeHtml(product.title)}');closeProductDetailModal()">💬 Message</button>
-        </div>` : '<div style="margin-top:16px;padding:12px;background:#fee;text-align:center;">Sold Out</div>'}
-        <button onclick="closeProductDetailModal()" style="width:100%;margin-top:12px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;">Close</button>
+        ${product.status !== 'sold' ? `<div class="button-group"><button class="add-to-cart-btn" onclick="addToCart('${product.id}');closeProductDetailModal()">🛒 Add to Cart</button><button class="contact-seller-btn" onclick="openMessaging('${product.id}', '${product.sellerId}', '${escapeHtml(product.sellerName)}', '${escapeHtml(product.title)}');closeProductDetailModal()">💬 Message</button></div>` : '<div style="margin-top:16px;padding:12px;background:#fee;text-align:center;">Sold Out</div>'}
+        <button onclick="closeProductDetailModal()">Close</button>
     `;
     window.currentDetailPhotos = photos;
     window.detailIndex = 0;
@@ -1473,7 +1094,6 @@ async function openMessaging(productId, sellerId, sellerName, productTitle) {
     currentChatProduct = { id: productId, title: productTitle };
     currentChatSeller = { id: sellerId, name: sellerName };
     const conversationId = [currentUser.id, sellerId].sort().join('_') + '_' + productId;
-    
     db.collection('messages').where('conversationId', '==', conversationId).orderBy('timestamp', 'asc').onSnapshot((snapshot) => {
         let msgHtml = '';
         snapshot.forEach(doc => {
@@ -1499,63 +1119,19 @@ async function sendMessage() {
 
 function closeMessagingModal() { document.getElementById('messagingModal').style.display = 'none'; }
 
-// ============ AUTH MODALS WITH PASSWORD TOGGLE ============
+// ============ AUTH MODALS ============
 function openAuthModal(mode) {
     if (mode === 'login') {
-        document.getElementById('authModalContent').innerHTML = `
-            <h2>Sign In</h2>
-            <div class="form-group">
-                <input id="loginEmail" placeholder="Email" class="card-input">
-            </div>
-            <div class="form-group">
-                <div class="password-wrapper">
-                    <input id="loginPass" type="password" placeholder="Password" class="card-input">
-                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('loginPass')">👁️</button>
-                </div>
-            </div>
-            <div class="forgot-password">
-                <a onclick="showForgotPassword()">Forgot Password?</a>
-            </div>
-            <button onclick="loginUser(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)" class="submit-btn">Sign In</button>
-            <p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('register')" style="color:#f97316;cursor:pointer;">Create account</a></p>
-            <button onclick="closeAuthModal()" style="margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;width:100%;">Cancel</button>
-        `;
-    } else if (mode === 'register') {
-        document.getElementById('authModalContent').innerHTML = `
-            <h2>Join NAWA</h2>
-            <div class="form-group">
-                <input id="regName" placeholder="Full Name" class="card-input">
-            </div>
-            <div class="form-group">
-                <input id="regEmail" placeholder="Email" class="card-input">
-            </div>
-            <div class="form-group">
-                <div class="password-wrapper">
-                    <input id="regPass" type="password" placeholder="Password (min 6 chars)" class="card-input">
-                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('regPass')">👁️</button>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="password-wrapper">
-                    <input id="confirmPass" type="password" placeholder="Confirm Password" class="card-input">
-                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPass')">👁️</button>
-                </div>
-            </div>
-            <button onclick="validateAndRegister()" class="submit-btn">Create Account</button>
-            <p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('login')" style="color:#f97316;cursor:pointer;">Already have account?</a></p>
-            <button onclick="closeAuthModal()" style="margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:40px;cursor:pointer;background:white;width:100%;">Cancel</button>
-        `;
+        document.getElementById('authModalContent').innerHTML = `<h2>Sign In</h2><div class="form-group"><input id="loginEmail" placeholder="Email" class="card-input"></div><div class="form-group"><div class="password-wrapper"><input id="loginPass" type="password" placeholder="Password" class="card-input"><button type="button" class="toggle-password" onclick="togglePasswordVisibility('loginPass')">👁️</button></div></div><div class="forgot-password"><a onclick="showForgotPassword()">Forgot Password?</a></div><button onclick="loginUser(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)" class="submit-btn">Sign In</button><p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('register')">Create account</a></p><button onclick="closeAuthModal()">Cancel</button>`;
+    } else {
+        document.getElementById('authModalContent').innerHTML = `<h2>Join NAWA</h2><div class="form-group"><input id="regName" placeholder="Full Name" class="card-input"></div><div class="form-group"><input id="regEmail" placeholder="Email" class="card-input"></div><div class="form-group"><div class="password-wrapper"><input id="regPass" type="password" placeholder="Password (min 6 chars)" class="card-input"><button type="button" class="toggle-password" onclick="togglePasswordVisibility('regPass')">👁️</button></div></div><div class="form-group"><div class="password-wrapper"><input id="confirmPass" type="password" placeholder="Confirm Password" class="card-input"><button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPass')">👁️</button></div></div><button onclick="validateAndRegister()" class="submit-btn">Create Account</button><p style="text-align:center;margin-top:12px;"><a onclick="openAuthModal('login')">Already have account?</a></p><button onclick="closeAuthModal()">Cancel</button>`;
     }
     document.getElementById('authModal').style.display = 'flex';
 }
 
 function togglePasswordVisibility(inputId) {
     const input = document.getElementById(inputId);
-    if (input.type === 'password') {
-        input.type = 'text';
-    } else {
-        input.type = 'password';
-    }
+    input.type = input.type === 'password' ? 'text' : 'password';
 }
 
 function validateAndRegister() {
@@ -1563,55 +1139,30 @@ function validateAndRegister() {
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPass').value;
     const confirm = document.getElementById('confirmPass').value;
-    
-    if (!name || !email || !password) {
-        alert('Please fill in all fields');
-        return;
-    }
-    
-    if (password !== confirm) {
-        alert('Passwords do not match!');
-        return;
-    }
-    
-    if (password.length < 6) {
-        alert('Password must be at least 6 characters');
-        return;
-    }
-    
+    if (!name || !email || !password) { alert('Please fill in all fields'); return; }
+    if (password !== confirm) { alert('Passwords do not match!'); return; }
+    if (password.length < 6) { alert('Password must be at least 6 characters'); return; }
     registerUser(name, email, password);
 }
 
 function showForgotPassword() {
     const email = document.getElementById('loginEmail').value;
-    if (!email) {
-        alert('Please enter your email address first');
-        return;
-    }
+    if (!email) { alert('Please enter your email address first'); return; }
     resetPassword(email);
 }
 
 function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-function closeAdminDashboard() { document.getElementById('adminModal').style.display = 'none'; }
 
 // ============ UI HELPERS ============
-function populateUI() {
-    buildCategoryDropdown();
-}
+function populateUI() { buildCategoryDropdown(); }
 
-document.getElementById('messagingContent').innerHTML = `
-    <div style="display:flex;justify-content:space-between;"><h3 id="chatTitle">Chat with Seller</h3><span onclick="closeMessagingModal()" style="font-size:24px;cursor:pointer;">×</span></div>
-    <div class="message-container" id="messageList"></div>
-    <div class="message-input-area"><input type="text" id="chatInput" class="message-input" placeholder="Type your message..."><button class="send-msg-btn" onclick="sendMessage()">Send</button></div>
-`;
+document.getElementById('messagingContent').innerHTML = `<div style="display:flex;justify-content:space-between;"><h3 id="chatTitle">Chat with Seller</h3><span onclick="closeMessagingModal()" style="font-size:24px;cursor:pointer;">×</span></div><div class="message-container" id="messageList"></div><div class="message-input-area"><input type="text" id="chatInput" placeholder="Type your message..."><button onclick="sendMessage()">Send</button></div>`;
 
 async function init() {
     populateUI();
     updateCartUI();
     updateAuthUI();
     loadProducts();
-    
-    trackPageView(document.title, window.location.href);
 }
 
 init();
